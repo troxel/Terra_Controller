@@ -30,6 +30,7 @@ void setup()
   EEPROM.get( 0, Config );
 
   Serial1.begin(2400);  // Pelco Controller
+  Serial2.begin(2400);  // Relay
   Serial.begin(9600);   // Debug interface
 
   pinMode(13, OUTPUT);
@@ -204,9 +205,11 @@ void snd_zoom( byte dir )
 {
   if (dir == 1 )      {
     Serial.println("Zoom Out!");
+    Serial2.write(0x0D);
   }
   else if (dir == 2 ) {
     Serial.println("Zoom in!");
+    Serial2.write(0x2E);
   }
 }
 
@@ -215,9 +218,11 @@ void snd_focus( byte dir )
 {
   if (dir == 1 )      {
     Serial.println("Focus Far!");
+    Serial2.write(0x30);
   }
   else if (dir == 2 ) {
     Serial.println("Focus Near!");
+    Serial2.write(0x38);
   }
 }
 
